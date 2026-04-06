@@ -1,24 +1,42 @@
+import '../database/entity/task.dart';
+
 class TaskDetailsModel{
-  final String title;
-  final String dueDate;
-  final String priority;
-  final String status;
-  final String assignee;
-  final String description;
+  String? title;
+  String? dueDate;
+  String? priority;
+  String? status;
+  String? assignee;
+  String? description;
 
   TaskDetailsModel({
-    required this.title,
-    required this.dueDate,
-    required this.priority,
-    required this.status,
-    required this.assignee,
-    required this.description,
+    this.title,
+    this.dueDate,
+    this.priority,
+    this.status,
+    this.assignee,
+    this.description,
   });
 
 
-  // Future<UserModel> getUserByName(String userName)async{
-  //   final database = await AppDBClient(). InitializeDatabase();
-  //   User user = database.userDao().findUserByName(userName);
-  //   return UserModel.fromEntity(user);
-  // }
+  TaskEntity taskToEntity(){
+    return TaskEntity(
+      title: title,
+      // dueDate: dueDate,
+      priority: priority,
+      status: status,
+      assignee: assignee,
+      description: description,
+    );
+  }
+
+  factory TaskDetailsModel.fromTaskEntity(TaskEntity task){
+    return TaskDetailsModel(
+      title: task.title,
+      dueDate: '',
+      priority: task.priority,
+      status: task.status,
+      assignee: task.assignee,
+      description: task.description,
+    );
+  }
 }

@@ -45,9 +45,9 @@ class LoginScreen extends GetView<LoginScreenController>{
 
                 SizedBox(height: Get.height*0.04,),
                 CustomTextField(
-                  hintText: 'Username',
+                  hintText: 'Email',
                   prefIcon: Icons.email,
-                  onChanged: (value) => controller.userName.value = value,
+                  onChanged: (value) => controller.email.value = value,
                 ),
 
                 SizedBox(height: Get.height*0.03,),
@@ -73,8 +73,8 @@ class LoginScreen extends GetView<LoginScreenController>{
                       child: CustomElevatedButton(
                         onPressed: (){
                           controller.login(
-                            controller.userName.value,
-                            controller.password.value
+                            controller.email.value,
+                            controller.password.value,
                           );
                         },
                         text: 'Log In',

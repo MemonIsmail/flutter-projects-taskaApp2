@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:taska_app/controllers/dashboard_screen_controller.dart';
 import 'package:taska_app/controllers/task_details_controller.dart';
+import 'package:taska_app/model/task_details_model.dart';
 import 'package:taska_app/screens/screens_colors.dart';
 
 import '../controllers/calendar_controller.dart';
@@ -135,7 +136,16 @@ class CustomDropDownMenu extends StatelessWidget {
   final IconData? icon;
   final String hintText;
   final List<DropdownMenuEntry<String>> items;
-  const CustomDropDownMenu({super.key, required this.width, required this.items,this.showIcon = false, this.icon, required this.hintText});
+  final ValueChanged<String?>? onSelected;
+  const CustomDropDownMenu({
+    super.key,
+    required this.width,
+    required this.items,
+    this.showIcon = false,
+    this.icon,
+    required this.hintText,
+    this.onSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -150,6 +160,7 @@ class CustomDropDownMenu extends StatelessWidget {
         )
         : null,
       hintText: hintText,
+      onSelected: onSelected,
       inputDecorationTheme: InputDecorationTheme(
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -188,27 +199,28 @@ class CustomDropDownMenu extends StatelessWidget {
 
 class TaskDetails extends StatelessWidget {
   final String title;
-  final String progress;
+  final String dueDate;
   final String priority;
+  final String status;
   final String assignee;
-  final String date;
-  const TaskDetails({
-    super.key,
-    required this.title,
-    required this.progress,
-    required this.priority,
-    required this.assignee,
-    required this.date,
-  });
+  final String description;
+  const TaskDetails(
+      {
+        super.key,
+        required this.title,
+        required this.dueDate,
+        required this.priority,
+        required this.status,
+        required this.assignee,
+        required this.description,
+      });
 
   @override
   Widget build(BuildContext context) {
-    DashboardScreenController dashboardScreenController = DashboardScreenController();
     return Column(
       children: [
         GestureDetector(
           onTap: (){
-            // dashboardScreenController.onTaskPressed();
           },
           child: Container(
             height: 120,
@@ -230,16 +242,16 @@ class TaskDetails extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             border: Border.all(
-                              color: (progress == 'In Progress') ? Color(0xFF8edd72) : (progress == 'Pending') ? Color(0xFFffc045) : kIndigoAccent,
+                              color: (status == 'In Progress') ? Color(0xFF8edd72) : (status == 'Pending') ? Color(0xFFffc045) : kIndigoAccent,
                               width: 1.5,
                             )
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 2),
                           child: Text(
-                            progress,
+                            status,
                             style: TextStyle(
-                              color: (progress == 'In Progress') ? Color(0xFF8edd72) : (progress == 'Pending') ? Color(0xFFffc045) : kIndigoAccent,
+                              color: (status == 'In Progress') ? Color(0xFF8edd72) : (status == 'Pending') ? Color(0xFFffc045) : kIndigoAccent,
                               fontSize: 14,
                             ),
                             textAlign: TextAlign.center,
@@ -313,7 +325,7 @@ class TaskDetails extends StatelessWidget {
                               ),
                               SizedBox(width: 5,),
                               Text(
-                                date,
+                                '',
                                 style: TextStyle(
                                     color: kGreyColor,
                                     fontSize: 13,

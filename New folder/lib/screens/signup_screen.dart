@@ -7,7 +7,7 @@ import 'package:taska_app/screens/screens_colors.dart';
 import 'package:taska_app/screens/widgets.dart';
 
 class SignUpScreen extends GetView<SignupScreenController>{
-  final TextFieldController textFieldController = TextFieldController();
+  final TextFieldController textFieldController = Get.put(TextFieldController());
 
   @override
   Widget build(BuildContext context) {

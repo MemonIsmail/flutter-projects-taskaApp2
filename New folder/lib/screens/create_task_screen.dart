@@ -28,7 +28,10 @@ class CreateTaskScreen extends GetView<TaskScreenController>{
               LabelText(text: 'Title'),
 
               SizedBox(height: Get.height*0.01,),
-              CustomTextField(hintText: 'Enter'),
+              CustomTextField(
+                hintText: 'Enter',
+                onChanged: (value) => controller.title.value = value,
+              ),
 
               SizedBox(height: Get.height*0.03,),
               LabelText(text: 'Due Date'),
@@ -48,6 +51,7 @@ class CreateTaskScreen extends GetView<TaskScreenController>{
               SizedBox(height: Get.height*0.01,),
               CustomDropDownMenu(
                 hintText: 'Select',
+                onSelected: (value) => controller.title.value = value ?? '',
                 width: Get.width*0.9,
                 items: [
                   DropdownMenuEntry(value: 'value1', label: 'Low'),
@@ -62,6 +66,7 @@ class CreateTaskScreen extends GetView<TaskScreenController>{
               SizedBox(height: Get.height*0.01,),
               CustomDropDownMenu(
                 hintText: 'Select',
+                  onSelected: (value) => controller.status.value = value ?? '',
                 width: Get.width*0.9,
                 items: [
                   DropdownMenuEntry(value: 'value1', label: 'Pending'),
@@ -76,6 +81,7 @@ class CreateTaskScreen extends GetView<TaskScreenController>{
               SizedBox(height: Get.height*0.01,),
               CustomDropDownMenu(
                 hintText: 'Select',
+                  onSelected: (value) => controller.assignee.value = value ?? '',
                 width: Get.width*0.9,
                 items: [
                   DropdownMenuEntry(value: 'value1', label: 'Bilawal Mehmood'),
@@ -94,7 +100,9 @@ class CreateTaskScreen extends GetView<TaskScreenController>{
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        controller.submitTask();
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kIndigoAccent,
                         foregroundColor: kWhiteColor,

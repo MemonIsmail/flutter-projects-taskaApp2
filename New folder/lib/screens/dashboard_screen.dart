@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taska_app/controllers/dashboard_screen_controller.dart';
-import 'package:taska_app/controllers/text_field_controller.dart';
+import 'package:taska_app/controllers/task_screen_controller.dart';
 import 'package:taska_app/screens/screens_colors.dart';
 import 'package:taska_app/screens/widgets.dart';
 
 class DashboardScreen extends GetView<DashboardScreenController>{
+  final TaskScreenController taskScreenController = Get.put(TaskScreenController());
+
   @override
   Widget build(BuildContext context) {
-    TaskDetails task1 = TaskDetails(
-      title: 'Create a Mobile App for Taska',
-      progress: 'In Progress',
-      priority: 'High',
-      assignee: 'Abdul Kareem',
-      date: '10 March 2023',
-    );
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 150,
@@ -84,48 +79,89 @@ class DashboardScreen extends GetView<DashboardScreenController>{
                       textColor: kBlackColor,
                       textSize: 20
                   ),
+                  Obx(() => Column(
+                    children: [
+                      if(taskScreenController.allTasks.isEmpty)
+                        const Text('No Tasks Found...')
+                      else
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: taskScreenController.allTasks.length,
+                          itemBuilder: (context, index) {
+                            final task = taskScreenController.allTasks[index];
+                            return TaskDetails(
+                              title: task.title!,
+                              dueDate: task.dueDate!,
+                              priority: task.priority!,
+                              status: task.status!,
+                              assignee: task.assignee!,
+                              description: task.description!
+                            );
+                          }
+                        ),
+                      SizedBox(height: 80,),
+                    ],
+                  )
+                  )
 
-                  SizedBox(height: 5,),
-                  TaskDetails(
-                    title: task1.title,
-                    progress: task1.progress,
-                    priority: task1.priority,
-                    assignee: task1.assignee,
-                    date: task1.date,
-                  ),
-
-                  SizedBox(height: 10,),
-                  TaskDetails(
-                    title: 'Create UI UX Design for taska Mobile App',
-                    progress: 'Pending',
-                    priority: 'Normal',
-                    assignee: 'Muhammad Mubashir',
-                    date: '31 Feb 2026',
-                  ),
-
-                  SizedBox(height: 10,),
-                  TaskDetails(
-                    title: 'Create Taska App in React Native',
-                    progress: 'Completed',
-                    priority: 'High',
-                    assignee: 'Muhammad Mubashir',
-                    date: '31 Feb 2026',
-                  ),
-
-                  SizedBox(height: 10,),
-                  TaskDetails(
-                    title: 'Create Taska App in React Native',
-                    progress: 'Completed',
-                    priority: 'High',
-                    assignee: 'Muhammad Mubashir',
-                    date: '31 Feb 2026',
-                  ),
-                  SizedBox(height: 75,),
+                  // SizedBox(height: 5,),
+                  // TaskDetails(
+                  //   title: task1.title,
+                  //   progress: task1.progress,
+                  //   priority: task1.priority,
+                  //   assignee: task1.assignee,
+                  //   date: task1.date,
+                  // ),
+                  //
+                  // SizedBox(height: 10,),
+                  // TaskDetails(
+                  //   title: 'Create UI UX Design for taska Mobile App',
+                  //   progress: 'Pending',
+                  //   priority: 'Normal',
+                  //   assignee: 'Muhammad Mubashir',
+                  //   date: '31 Feb 2026',
+                  // ),
+                  //
+                  // SizedBox(height: 10,),
+                  // TaskDetails(
+                  //   title: 'Create Taska App in React Native',
+                  //   progress: 'Completed',
+                  //   priority: 'High',
+                  //   assignee: 'Muhammad Mubashir',
+                  //   date: '31 Feb 2026',
+                  // ),
+                  //
+                  // SizedBox(height: 10,),
+                  // TaskDetails(
+                  //   title: 'Create Taska App in React Native',
+                  //   progress: 'Completed',
+                  //   priority: 'High',
+                  //   assignee: 'Muhammad Mubashir',
+                  //   date: '31 Feb 2026',
+                  // ),
+                  // SizedBox(height: 75,),
 
                 ],
               ),
             ),
           ),
+          // if(allTasks == null)
+          //   const Center(
+          //     child: Column(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         Text(
+          //           'No Tasks Found...',
+          //           style: TextStyle(
+          //             color: kGreyColor,
+          //             fontSize: 15,
+          //           ),
+          //         ),
+          //         SizedBox(height: 30,)
+          //       ],
+          //     ),
+          //   ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Row(

@@ -12,9 +12,9 @@ class UserLoginService {
   factory UserLoginService(){
     return _instance;
   }
-  Future<UserModel?> getUserByName(String userName, String password) async {
+  Future<UserModel?> getUserByName(String email, String password) async {
     final database = await AppDBClient().initializeDB();
-    UserEntity? user = await database.userDao.findUserByName(userName, password);
+    UserEntity? user = await database.userDao.findUserByName(email, password);
     if(user != null) {
       return UserModel.fromUserEntity(user);
     }

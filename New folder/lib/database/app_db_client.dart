@@ -1,9 +1,10 @@
 import 'package:taska_app/database/database.dart';
 
 class AppDBClient {
-  static final AppDBClient _instance = AppDBClient._private();
 
-  AppDBClient._private();
+  AppDBClient._internal();
+
+  static final AppDBClient _instance = AppDBClient._internal();
 
   factory AppDBClient()=>_instance;
 

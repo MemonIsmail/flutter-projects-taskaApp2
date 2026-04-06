@@ -6,7 +6,7 @@ import 'package:taska_app/model/user_model.dart';
 class LoginScreenController extends GetxController{
   final UserLoginService _service = UserLoginService();
 
-  RxString userName = ''.obs;
+  RxString email = ''.obs;
   RxString password = ''.obs;
 
   void onLoginPressed(){
@@ -17,9 +17,9 @@ class LoginScreenController extends GetxController{
     Get.offAllNamed(kSignupScreenRoute);
   }
 
-  Future<void> login(String userName, String password) async{
+  Future<void> login(String email, String password) async{
     try{
-      final user = await _service.getUserByName(userName, password);
+      final user = await _service.getUserByName(email, password);
       if(user!=null){
         Get.snackbar('Success', 'Welcome: ${user.userName}');
         Get.offAllNamed(kDashboardScreenRoute);
