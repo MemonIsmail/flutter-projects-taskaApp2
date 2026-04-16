@@ -1,0 +1,86 @@
+1. Shared Preferences.
+2. Null Safety.
+3. Flutter Architecture.
+4. Getx.
+5. Naming Convention.
+6. Floor(Local Database).
+
+
+------------------------------------------
+
+isThereAnyLivestockExist
+isLivestockExist
+
+star_wash_ext
+
+JsonEncode:= Converts data into String.
+JsonDecode:= Converts back in to original form.
+
+Null Operators:
+? => Nullable
+! => Assertion
+?? => Default Value
+??= => Assign Default Value
+
+
+
+
+UserModel user = UserModel();
+int? name;
+
+user.name;
+
+{
+user:{
+firstname : ""
+}}
+
+
+MVC = Model View Controller
+MVVM =  Model View ViewModel
+Clean Architecture = Mostly Used with bloc.
+
+Injection:
+Get.put
+Get.lazyPut
+
+Access:
+Get.find
+GetView
+
+Get.find(XYZCOntroller);
+
+
+"Select * FROM Person" => @Query
+@update 
+@insert
+@delete
+
+
+Select * FROM contact WHERE name = "Abdul Salam"
+
+
+  @Query('SELECT * FROM Person WHERE id = :myId')
+  Stream<Person?> findPersonById(int myId);
+
+@update
+  Future<void> updatePerson(Person person);
+
+
+Floor Steps:
+
+1=> Craete Entity.
+2=> Create Dao.
+3=> Create Database file.
+      i. imports
+      ii. part filename.g.dart
+4=> Run Command. "flutter packages pub run build_runner build"
+5=> Create App DB Client file.
+6=> Floor Services.
+7=> Use Floor Services in controller.
+
+
+
+
+
+List<UserModel> userList = UserFloorServices().getAllUsers(); 
